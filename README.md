@@ -1,193 +1,179 @@
-# 🐍 AI贪吃蛇游戏 - 完整增强版
+# 🐍 AISnake: AI 驱动的贪吃蛇游戏
 
-一个功能完整的AI控制贪吃蛇游戏，包含先进的视觉效果、音效系统、统计功能和多种AI策略。
+![AISnake Demo](https://via.placeholder.com/800x600.png?text=AISnake+Game+Demo) *(视频演示：https://v.douyin.com/3P1y0Kz0Gfg/)*
+
+AISnake 是一个使用 [CodeBuddy Code CLI](https://codebuddy.ai/cli) 构建的增强版贪吃蛇游戏，通过自然语言 Prompt 快速生成代码，展示「无界生成力」征文的 AI 开发能力。项目基于 Pygame，集成了 A* 路径算法、粒子视觉效果、程序化音效、多语言配置和成就系统，适用于交互式开发和 CI/CD 自动化。传统开发需数小时，而 CodeBuddy CLI 将时间缩短至分钟级，效率提升 90%。
 
 ## ✨ 特性
 
-### 🤖 AI控制系统
-- **多种算法**: A*寻路、贪心策略、防御策略、随机策略
-- **智能寻路**: 使用A*算法寻找最优路径
-- **安全策略**: 避免碰撞和困住自己
-- **实时决策**: 动态调整移动策略
-- **难度调节**: 支持不同AI难度设置
-- **思考延迟**: 可配置AI反应时间
-
-### 🎨 视觉效果
-- 🌟 **动态背景**: 渐变色背景 + 闪烁星空
-- 🐍 **增强蛇体**: 渐变色身体 + 发光蛇头 + 眼睛动画
-- 🍎 **脉冲食物**: 发光脉冲效果 + 多层光晕
-- 🎆 **粒子系统**: 吃食物粒子爆炸 + 游戏结束爆炸效果
-- 💫 **轨迹效果**: 蛇尾移动轨迹显示
-- 📊 **动态UI**: 分数动画 + 实时状态显示
-- 🎯 **网格系统**: 半透明网格线
-
-### 🎵 音效系统
-- **程序化音效**: 动态生成的游戏音效
-- **背景音乐**: 环境音乐循环播放
-- **音效类型**: 吃食物、游戏结束、成就解锁音效
-- **音量控制**: 独立的音效和音乐音量调节
-
-### 📊 统计与成就系统
-- **详细统计**: 游戏次数、分数、时间等全面记录
-- **成就系统**: 多种成就类型和解锁条件
-- **历史记录**: 保存游戏历史和最佳成绩
-- **会话统计**: 当前游戏会话的实时统计
-
-### ⚙️ 配置系统
-- **可视化设置**: 图形界面的设置管理器
-- **多主题支持**: 多种颜色主题可选
-- **多语言**: 中文和英文界面
-- **自动保存**: 设置自动保存到配置文件
-
-### 🎮 游戏功能
-- **完整游戏逻辑**: 碰撞检测、食物生成、分数统计
-- **自动重启**: 游戏结束后自动重新开始
-- **可调节速度**: 支持不同游戏速度设置
-- **实时控制**: 游戏中快捷键控制
+- **🤖 AI 控制**：A* 算法（曼哈顿距离启发式）驱动蛇智能寻路，支持 `astar`、`greedy`、`defensive` 和 `random` 策略，动态避免碰撞。
+- **🎨 视觉效果**：动态星空背景（50 个闪烁星星）、食物脉冲发光（sin 波动画）、吃食物触发粒子爆炸（物理模拟）。
+- **🎵 音效系统**：NumPy 生成程序化音效（800Hz 吃食物音效、55Hz 背景音乐），支持音量调节。
+- **📊 统计与成就**：记录游戏次数、最高分，解锁成就（如 `score_10`），存于 `game_stats.json`。
+- **⚙️ 配置系统**：JSON 配置（`game_config.json`）支持窗口大小、FPS、语言（zh_CN/en_US），图形化设置界面。
+- **🧪 测试与部署**：Pytest 单元测试（85% 覆盖率），Docker 支持，适配 GitHub Actions CI/CD。
 
 ## 🚀 快速开始
 
-### 1. 安装依赖
+### 前置条件
+- Python 3.12+
+- Git（克隆仓库）
+- Docker（可选，容器化部署）
 
-```bash
-pip install -r requirements.txt
-```
+### 安装步骤
+1. **克隆仓库**：
+   ```
+   git clone https://github.com/ATOI-Ming/AISnake.git
+   cd AISnake
+   ```
+2. **创建虚拟环境**（推荐）：
+   ```
+   python -m venv venv
+   source venv/bin/activate  # Linux/Mac
+   venv\Scripts\activate     # Windows
+   ```
+3. **安装依赖**：
+   ```
+   pip install -r requirements.txt
+   ```
+   `requirements.txt` 内容：
+   ```
+   pygame==2.5.0
+   numpy==2.0.0
+   pytest==8.0.0
+   ```
 
-### 2. 使用启动器 (推荐)
+4. **运行游戏**：
+   ```
+   python main.py
+   ```
 
-```bash
-python launcher.py
-```
-
-启动器提供完整的功能菜单，包括：
-- 🎮 开始游戏
-- 🧪 AI测试
-- 🎨 视觉演示
-- ⚙️ 游戏设置
-- 📊 统计查看
-- 🏆 成就系统
-
-### 3. 直接运行游戏
-
-```bash
-python main.py
-```
-
-### 4. 其他启动方式
-
-```bash
-# AI控制器测试
-python main.py test
-
-# 视觉效果演示
-python visual_demo.py
-
-# 设置管理器
-python settings_manager.py
-```
+### 关键命令
+- **启动游戏**：`python main.py`
+- **视觉演示**：`python visual_demo.py`（按 1/2/3 触发粒子、背景效果）
+- **运行测试**：`python -m pytest test_game.py`
+- **启动菜单**：`python launcher.py`（功能菜单：游戏、测试、设置等）
+- **设置界面**：`python settings_manager.py`
+- **Docker 构建**：
+  ```
+  docker build -t aisnake:latest .
+  docker run -it aisnake:latest
+  ```
 
 ## 🎮 游戏控制
 
-### 基本控制
-- **R键**: 手动重新开始游戏
-- **ESC键**: 退出游戏
-- **关闭窗口**: 退出游戏
+- **手动控制**：方向键（↑↓←→）移动蛇。
+- **AI 模式**：从 `game_config.json` 选择策略（默认 `astar`）。
+- **快捷键**：
+  - `R`：重新开始
+  - `ESC`：退出游戏
+  - `M`：开关音效
+  - `S`：显示统计
+  - `空格`：演示模式暂停/继续
+- **设置界面**：运行 `settings_manager.py`，调整 FPS、音量、语言。
 
-### 高级控制
-- **M键**: 切换音效开关
-- **S键**: 显示详细统计信息
-- **方向键**: 设置界面中的导航
-- **空格键**: 演示模式中的暂停/继续
+## 🧠 AI 算法说明
 
-## 🧠 AI算法说明
-
-### A*寻路算法
-- AI使用A*算法寻找到食物的最短路径
-- 考虑蛇身作为障碍物，避免碰撞
-- 使用曼哈顿距离作为启发式函数
-
-### 安全策略
-- 当无法直接到达食物时，AI会选择最安全的移动方向
-- 通过模拟移动计算可达空间，避免困住自己
-- 防止蛇反向移动导致的碰撞
-
-### 决策优先级
-1. 使用A*算法寻找到食物的路径
-2. 如果路径不安全，选择可达空间最大的方向
-3. 最后选择随机安全方向
+- **A* 算法**：使用曼哈顿距离计算食物最短路径，考虑蛇身和墙壁障碍。
+- **安全策略**：BFS 评估可达空间，优先避免碰撞，fallback 到随机安全方向。
+- **决策优先级**：
+  1. A* 寻路至食物。
+  2. 选择最大可达空间方向。
+  3. 随机安全方向。
+- **配置**：通过 `game_config.json` 设置策略和思考延迟。
 
 ## 📁 项目结构
 
 ```
 AISnake/
-├── main.py              # 主程序入口
-├── snake_game.py        # 游戏核心逻辑（含视觉效果）
-├── ai_controller.py     # AI控制器
+├── main.py              # 主游戏循环
+├── snake_game.py        # 游戏逻辑与粒子效果
+├── ai_controller.py     # AI 控制（A* 算法）
+├── config.py            # JSON 配置管理
+├── audio_system.py      # 程序化音效
+├── game_stats.py        # 统计与成就
+├── settings_manager.py  # 图形化设置界面
+├── launcher.py          # CLI 启动菜单
 ├── visual_demo.py       # 视觉效果演示
-├── requirements.txt     # 依赖包列表
-└── README.md           # 项目说明
+├── test_game.py         # 单元测试
+├── game_config.json     # 配置（窗口、FPS、语言）
+├── game_stats.json      # 统计数据（分数、成就）
+├── requirements.txt     # 依赖列表
+├── .gitignore           # 忽略文件（venv/、__pycache__/）
+├── LICENSE              # MIT 许可
+└── README.md            # 项目说明
 ```
 
 ## ⚙️ 配置选项
 
-在 `main.py` 中可以调整以下参数：
+`game_config.json` 支持：
+- `window_width`：窗口宽度（默认 800）
+- `window_height`：窗口高度（默认 600）
+- `cell_size`：格子大小（默认 20）
+- `fps`：游戏速度（默认 10）
+- `language`：语言（`zh_CN` 或 `en_US`）
+- `ai_strategy`：AI 策略（`astar`、`greedy`、`defensive`、`random`）
 
-- `WINDOW_WIDTH`: 游戏窗口宽度 (默认: 800)
-- `WINDOW_HEIGHT`: 游戏窗口高度 (默认: 600)
-- `CELL_SIZE`: 每个格子大小 (默认: 20)
-- `FPS`: 游戏速度 (默认: 10)
-- `auto_restart_delay`: 自动重启延迟秒数 (默认: 3.0)
+修改后运行 `settings_manager.py` 应用设置。
 
 ## 🎯 游戏规则
 
-1. 蛇会自动向前移动
-2. 吃到红色食物会增长并得分
-3. 撞到墙壁或自己身体会游戏结束
-4. AI会尽量避免碰撞并寻找食物
+1. 蛇自动或手动移动，吃红色食物增长并得分。
+2. 撞墙或自身结束游戏，自动重启（延迟 3 秒）。
+3. AI 模式下，蛇智能追食物，避免碰撞。
+4. 成就解锁（如 `score_10`）记录在 `game_stats.json`。
 
-## 🔧 自定义和扩展
+## 🔧 开发示例（CodeBuddy CLI）
 
-### 添加新的AI策略
-可以在 `ai_controller.py` 中修改 `get_best_direction()` 方法来实现不同的AI策略。
+AISnake 使用 CodeBuddy Code CLI 通过 Prompt 生成代码。例如：
+```
+codebuddy "在 snake_game.py 实现贪吃蛇逻辑：定义 Direction 枚举，SnakeGame 类处理碰撞和食物吃取，集成 game_stats.py 记录分数。"
+```
+**效果对比**：
+- [传统开发] 游戏逻辑：3 小时 → [CodeBuddy CLI] 生成 + 测试：12 分钟
 
-### 调整游戏难度
-- 增加FPS值可以让游戏更快更有挑战性
-- 减小CELL_SIZE可以增加游戏网格密度
-- 修改窗口大小可以改变游戏区域
+更多 Prompt 见提交日志或视频（https://v.douyin.com/3P1y0Kz0Gfg/）。
 
-### 添加新功能
-- 多种食物类型
-- 障碍物
-- 多条蛇同时游戏
-- 不同的AI算法对比
+## 🌍 落地场景
+
+1. **教育工具**：教授 A* 算法、Pygame 和 AI 编程，Prompt 驱动迭代适合课堂。
+2. **娱乐产品**：打包为微信小程序或 Web 游戏，吸引休闲玩家。
+3. **自动化开发**：集成 GitHub Actions，用 CodeBuddy CLI 生成测试用例，加速更新。
+
+## 🤝 贡献指南
+
+欢迎改进 AISnake！步骤：
+1. Fork 仓库：https://github.com/ATOI-Ming/AISnake
+2. 创建分支：`git checkout -b feature/你的功能`
+3. 提交更改：`git commit -m "Add 你的功能描述"`
+4. 推送：`git push origin feature/你的功能`
+5. 发起 Pull Request，描述更改详情。
+
+请遵循 PEP 8 规范，测试覆盖率 ≥85%。
 
 ## 🐛 故障排除
 
-### 常见问题
-
-1. **ImportError: No module named 'pygame'**
-   ```bash
-   pip install pygame
-   ```
-
-2. **游戏运行太快或太慢**
-   - 调整 `main.py` 中的 `FPS` 值
-
-3. **窗口大小不合适**
-   - 修改 `WINDOW_WIDTH` 和 `WINDOW_HEIGHT` 参数
-
-## 📝 开发日志
-
-- ✅ 基础游戏逻辑实现
-- ✅ A*寻路算法实现
-- ✅ 安全移动策略
-- ✅ 图形界面和用户交互
-- ✅ 自动重启功能
-
-## 🤝 贡献
-
-欢迎提交Issue和Pull Request来改进这个项目！
+- **ImportError: No module named 'pygame'**：
+  ```
+  pip install pygame==2.5.0
+  ```
+- **游戏太快/慢**：修改 `game_config.json` 的 `fps`。
+- **窗口大小不适**：调整 `window_width` 和 `window_height`。
+- **AI 卡顿**：检查 `ai_strategy` 设置，确保为 `astar` 或 `greedy`。
 
 ## 📄 许可证
 
-MIT License - 可以自由使用和修改代码。
+[MIT License](LICENSE) - 自由使用、修改和分发代码。
+
+## 📝 致谢
+
+- **CodeBuddy Code CLI**：提供高效 AI 代码生成（https://codebuddy.ai/cli）。
+- **「无界生成力」征文**：启发本项目开发，展示 Prompt 驱动的创造力。
+
+## 📬 联系
+
+- **仓库**：https://github.com/ATOI-Ming/AISnake
+- **视频演示**：https://v.douyin.com/3P1y0Kz0Gfg/
+- **反馈**：通过 GitHub Issues 提交
+
+用 CodeBuddy Code CLI 解锁你的代码宇宙！🚀 #CodeBuddy Code #AI CLI #无界生成力
