@@ -1,0 +1,63 @@
+{
+    "window": {
+        "width": 800,
+        "height": 600,
+        "title": "AI Snake - Enhanced Visual Edition",
+        "cell_size": 20
+    },
+    "performance": {
+        "fps": 10,
+        "auto_restart_delay": 3.0,
+        "particle_limit": 100
+    },
+    "visual": {
+        "enable_particles": true,
+        "enable_trail": true,
+        "enable_glow": true,
+        "enable_stars": true,
+        "star_count": 50,
+        "enable_grid": true
+    },
+    "ai": {
+        "algorithm": "astar",
+        "difficulty": "normal",
+        "think_time": 0.0
+    },
+    "colors": {
+        "theme": "default",
+        "snake_head": [
+            144,
+            238,
+            144
+        ],
+        "snake_body": [
+            0,
+            200,
+            50
+        ],
+        "food": [
+            255,
+            0,
+            0
+        ],
+        "background": [
+            10,
+            10,
+            30
+        ]
+    },
+    "audio": {
+        "enable_sound": true,
+        "master_volume": 0.7,
+        "sfx_volume": 0.8,
+        "music_volume": 0.5
+    },
+    "stats": {
+        "save_stats": true,
+        "stats_file": "game_stats.json"
+    },
+    "language": {
+        "current": "zh_CN",
+        "auto_detect": true
+    }
+}
